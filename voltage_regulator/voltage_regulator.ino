@@ -1,10 +1,12 @@
-#include <DallasTemp.h>
+#include <DallasTemperature.h>
 #include <LiquidCrystal.h>
-#define DHTPIN 2      // DHT11 data pin connected to Pin 2
-#define DHTTYPE DHT11 // Define sensor type
+#include <OneWire.h>
 const int rs = 7, en = 8, d4 = 9, d5 = 10, d6 = 11, d7 = 12;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);  // Create an LCD object
-DHT dht(DHTPIN, DHTTYPE); // Create a DHT sensor object
+
+#define tempPin 3
+OneWire oneWire(tempPin); // Initialize OneWire protocol on pin tempPin.
+DallasTemperature sensors(&oneWire); // DallasTemperature library to simplifies
 
 float temp;
 float volt;
@@ -23,7 +25,8 @@ void setup() {
 }
 
 void Temper(float temp,float fan){
-  temp = dht.readTemperature();
+  sensors.requestTemperatures(); // Function requesting Temperature
+  temp = sensors.getTempCByIndex(0); 
   if(temp >= 1){
     fan = HIGH;
     return fan;
