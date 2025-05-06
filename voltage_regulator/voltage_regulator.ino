@@ -42,7 +42,7 @@ void Temper(float temp,float fan){
 float Voltage() {
   int VoltValue = analogRead(VoltPin);
   //Analog read from the voltage divider using A to D conversion
-  float volt = VoltValue * (5.0 / 1023.0);
+  float volt = VoltValue * (48.7 / 1023.0); //The number divided by 1023.0 is the calibration constant
   //Mapping the voltage
   return volt;
 }
