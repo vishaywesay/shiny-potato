@@ -41,15 +41,25 @@ float Temper(){
   
   
 }
-
-void display(float volt, float temp){
+/*
+void Serialdisplay(float volt, float temp){
   Serial.print("Temperature: ");
   Serial.print(temp);
   Serial.print(" °C ");
-  lcd.setCursor(0, 8);
   Serial.print("Voltage: ");
   Serial.print(volt);
   Serial.println(" V ");
+}
+*/
+
+void Serialdisplay(float volt, float temp){
+  lcd.print("Temperature: ");
+  lcd.print(temp);
+  lcd.print(" °C ");
+  lcd.setCursor(0, 8);
+  lcd.print("Voltage: ");
+  lcd.print(volt);
+  lcd.println(" V ");
   lcd.setCursor(0, 8);
   
 
