@@ -22,39 +22,55 @@ void setup() {
   // put your setup code here, to run once:
   lcd.begin(16, 2);             // Initialize LCD type (x columns, y rows)
   Serial.begin(9600);
+  sensors.begin();
+  pinMode(tempPin, INPUT);
 }
 
-void Temper(float temp,float fan){
+float Temper(){
   sensors.requestTemperatures(); // Function requesting Temperature
   temp = sensors.getTempCByIndex(0); 
   if(temp >= 1){
     fan = HIGH;
-    return fan;
   } else if (temp >= 2){
     fan = HIGH;
-    return fan;
   } else if (temp <= 3){
     fan = LOW;
-    return fan;
   }
+  return fan;
+  return temp;
+  
+  
 }
-
-void display(float volt, float temp){
+/*
+void Serialdisplay(float volt, float temp){
   Serial.print("Temperature: ");
   Serial.print(temp);
-  Serial.print(" °C");
-  lcd.setCursor(0, 8);
+  Serial.print(" °C ");
   Serial.print("Voltage: ");
   Serial.print(volt);
-  Serial.print(" °C");
+  Serial.println(" V ");
+}
+*/
+
+void Serialdisplay(float volt, float temp){
+  lcd.print("Temperature: ");
+  lcd.print(temp);
+  lcd.print(" °C ");
+  lcd.setCursor(0, 8);
+  lcd.print("Voltage: ");
+  lcd.print(volt);
+  lcd.println(" V ");
   lcd.setCursor(0, 8);
   
 
 }
+
 void loop() {
   //getVolt(float volt);
-  Temper(temp, fan);
+  Temper();
   lcd.clear();
+ 
   display(volt, temp);
+
   
 }
