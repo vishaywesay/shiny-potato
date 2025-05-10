@@ -37,4 +37,4 @@ _______________________________________________________________
 | Volt Sensor | Voltage Divider node A → A0                                    | 
 
 ## Pinout Image ##
-![Local Image](docs/CircuitExamplePSR.png)
+![Local Image](Docs/CircuitExamplePSR.png)
