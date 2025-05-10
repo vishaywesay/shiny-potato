@@ -16,3 +16,15 @@ By using a Linear regulator it is both cost effective, stable and beginner frien
 
 In order to achieve the most stability possible out of a budget DIY project an arduino UNO R3 will be used to give a Voltage readout, voltage regulator temperature monitoring and regulation by controlling a set of 12V fans.
 
+_______________________________________________________________
+|LCD Display                   |  TEMP SENSOR                 |
+| 1k resistor to ground → VD,  |    Vout → Pin 3              |
+| Pin 7 → RS,                  |                              |
+| Pin 8 → RW,                  |                              |
+| Pin 9 → D4,                  |                              |
+| Pin 10 → D5,                 |______________________________|
+| Pin 11 → D6,                 | Volt SENSOR                  |
+| A → VCC                      |                              |
+| Pin 12 → D7,                 |   Voltage Divider node A → A0|
+| K→GND                        |                              |
+|______________________________|______________________________|
