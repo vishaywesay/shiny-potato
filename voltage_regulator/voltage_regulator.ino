@@ -1,19 +1,20 @@
 #include <DallasTemperature.h>
 #include <LiquidCrystal.h>
 #include <OneWire.h>
-#include <PWM.h>
+
 const int rs = 7, en = 8, d4 = 9, d5 = 10, d6 = 11, d7 = 12;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);  // Create an LCD object
 int VoltPin = A5;
+int fanPin = A0;
 float volt;
 float temp;
 int fan;
 int x;
 int y;
 int z;
-int high;
-int med;
-int low;
+int FAST = 255;
+int MED = 128;
+int SLOW = 48;
 
 #define tempPin 3
 OneWire oneWire(tempPin);             // Initialize OneWire protocol on pin tempPin.
@@ -41,33 +42,16 @@ float Voltage() {
 
 
 
-void loop() {
-  float VoltValue = analogRead(VoltPin);
-  analogRead(VoltPin);
-  VoltValue = Voltage();
-  Serial.print("Voltage:");
-  Serial.print(VoltValue);
-  Serial.println("V");
-  delay(500);
-  //getVolt(float volt);
-  //Temper(temp, fan);
-  lcd.clear();
-  // display(volt);
-}
-
-
-
 float Temper() {
   sensors.requestTemperatures();  // Function requesting Temperature
   temp = sensors.getTempCByIndex(0);
-  if (temp >= 1) {
-    fan = HIGH;
-  } else if (temp >= 2) {
-    fan = HIGH;
-  } else if (temp <= 3) {
-    fan = LOW;
+  if (temp >= 30) {
+    analogWrite(fanPin, 255);
+  } else if (temp >= 25) {
+    analogWrite(fanPin, 128);
+  } else if (temp <= 21) {
+    analogWrite(fanPin, 48);
   }
-  return fan;
   return temp;
 }
 
@@ -83,10 +67,16 @@ void Serialdisplay(float volt, float temp) {
   lcd.setCursor(0, 8);
 }
 
-/*void loop() {
-  getVolt(float volt);
-  Temper();
+void loop() {
+  float VoltValue = analogRead(VoltPin);
+  temp = sensors.getTempCByIndex(0);
+  analogRead(tempPin);
+  analogRead(VoltPin);
+  VoltValue = Voltage();
+  Serial.print("Voltage:");
+  Serial.print(VoltValue);
+  Serial.println("V");
+  Serial.println(temp);
+  delay(500);
   lcd.clear();
-  display(volt, temp);
 }
-*/
