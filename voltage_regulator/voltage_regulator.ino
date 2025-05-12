@@ -34,6 +34,7 @@ void setup() {
 
 float Voltage() {
   int VoltValue = analogRead(VoltPin);
+  analogRead(VoltPin);
   //Analog read from the voltage divider using A to D conversion
   float volt = VoltValue * (48.7 / 1023.0);  //The number divided by 1023.0 is the calibration constant
   //Mapping the voltage
@@ -43,6 +44,7 @@ float Voltage() {
 
 
 float Temper() {
+  analogRead(tempPin);
   sensors.requestTemperatures();  // Function requesting Temperature
   temp = sensors.getTempCByIndex(0);
   if (temp >= 30) {
@@ -68,13 +70,9 @@ void Serialdisplay(float volt, float temp) {
 }
 
 void loop() {
-  float VoltValue = analogRead(VoltPin);
-  temp = sensors.getTempCByIndex(0);
-  analogRead(tempPin);
-  analogRead(VoltPin);
-  VoltValue = Voltage();
+  Temper();
+  Voltage();
   Serial.print("Voltage:");
-  Serial.print(VoltValue);
   Serial.println("V");
   Serial.println(temp);
   delay(500);
