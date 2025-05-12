@@ -6,10 +6,12 @@ Authors: Evan Matulina and Victor Matta-Myers
 Project: Arduino Managment System for a Linear Power Supply
 */
 
+//All the libraries needed for this code to run
 #include <DallasTemperature.h>
 #include <LiquidCrystal.h>
 #include <OneWire.h>
 
+//Assigning of the variables and constants as well as one object created
 const int rs = 7, en = 8, d4 = 9, d5 = 10, d6 = 11, d7 = 12;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);  // Create an LCD object
 int VoltPin = A5;                           //used for analog in
@@ -53,38 +55,39 @@ float Voltage() {
 
 //This function is for the temperature readout
 float Temper() {
-  analogRead(tempPin);            //reads the pin used for temp
+  analogRead(tempPin);            //Reads the pin used for temp
   sensors.requestTemperatures();  // Function requesting Temperature
-  temp = sensors.getTempCByIndex(0);
-  int fanSpeed = 0;
+  temp = sensors.getTempCByIndex(0); //Call a fonction from the DallasTemp lib
+  int fanSpeed = 0; //Initial value of fanSpeed is zero as a placeholder. Replaed with speed value
+  
 
   //This is the logic for the fan control
   if (temp > 30) {
 
-    fanSpeed = Hspeed;  //fans at full speed
+    fanSpeed = Hspeed;  //Fans at full speed
 
   } else if (temp > 25) {
 
-    fanSpeed = Mspeed;  //half speed when greater than 25 degrees C
+    fanSpeed = Mspeed;  //Half speed when greater than 25 degrees C
 
   } else {
 
-    fanSpeed = Lspeed;  //puts the fans to a minimum speed
+    fanSpeed = Lspeed;  //Puts the fans to a minimum speed
   }
 
-  analogWrite(fanPin, fanSpeed);  //this is where the value is sent out to the pin
-  return temp;                    //for use later
+  analogWrite(fanPin, fanSpeed);  //This is where the value is sent out to the pin
+  return temp;                    //For use later
 }
 
 
 void Serialdisplay(float volt, float temp) {
   lcd.clear();  // Clear the LCD before displaying new values
   lcd.print("Temperature: ");
-  lcd.print(temp);  //pulls the vlaue
+  lcd.print(temp);  //Pulls the vlaue
   lcd.print(" °C ");
   lcd.setCursor(0, 1);  // Move to the second line
   lcd.print("Voltage: ");
-  lcd.print(volt);  //pulls the value
+  lcd.print(volt);  //Pulls the value
   lcd.print(" V ");
 }
 
