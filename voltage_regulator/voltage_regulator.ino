@@ -12,10 +12,10 @@ Project: Arduino Managment System for a Linear Power Supply
 
 const int rs = 7, en = 8, d4 = 9, d5 = 10, d6 = 11, d7 = 12;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);  // Create an LCD object
-int VoltPin = A5;
-int fanPin = 5;
-float volt;
-float temp;
+int VoltPin = A5;                           //used for analog in
+int fanPin = 5;                             //PWM control
+float volt;                                 //volt will be a variable that requires some precision. Float is required
+float temp;                                 //can be changed to int if memory is an issue
 int fan;
 int x;
 int y;
@@ -31,10 +31,10 @@ DallasTemperature sensors(&oneWire);  // DallasTemperature library to simplifies
 
 
 void setup() {
-  // put your setup code here, to run once:
+  //Starting the serial connections and defining pins
   Serial.begin(9600);
   pinMode(VoltPin, INPUT);
-  sensors.begin();
+  sensors.begin();  //Initialize the temp sensor
   pinMode(tempPin, INPUT);
   pinMode(fanPin, OUTPUT);
   lcd.begin(16, 2);  // Initialize LCD type (x columns, y rows)
