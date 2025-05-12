@@ -1,3 +1,11 @@
+/* 
+Dawson College
+Electronics Engineering Technology
+Lab Exam
+Authors: Evan Matulina and Victor Matta-Myers
+Project: Arduino Managment System for a Linear Power Supply
+*/
+
 #include <DallasTemperature.h>
 #include <LiquidCrystal.h>
 #include <OneWire.h>
@@ -14,7 +22,7 @@ int y;
 int z;
 const int Hspeed = 255;  //This is used to set pin controlling fan to full on
 const int Mspeed = 200;  // Value for setting fan to half speed on analog pin control
-const int Lspeed = 102;   // Value for min fan speed on analog pin control pin for TIP110
+const int Lspeed = 102;  // Value for min fan speed on analog pin control pin for TIP110
 
 #define tempPin 3
 OneWire oneWire(tempPin);             // Initialize OneWire protocol on pin tempPin.
@@ -43,41 +51,40 @@ float Voltage() {
 }
 
 
-
+//This function is for the temperature readout
 float Temper() {
-  analogRead(tempPin);
+  analogRead(tempPin);            //reads the pin used for temp
   sensors.requestTemperatures();  // Function requesting Temperature
   temp = sensors.getTempCByIndex(0);
   int fanSpeed = 0;
 
-
+  //This is the logic for the fan control
   if (temp > 30) {
 
-    fanSpeed = Hspeed;
+    fanSpeed = Hspeed;  //fans at full speed
 
   } else if (temp > 25) {
 
-    fanSpeed = Mspeed;
+    fanSpeed = Mspeed;  //half speed when greater than 25 degrees C
 
   } else {
 
-    fanSpeed = Lspeed;
-
+    fanSpeed = Lspeed;  //puts the fans to a minimum speed
   }
 
-  analogWrite(fanPin, fanSpeed);
-  return temp;
+  analogWrite(fanPin, fanSpeed);  //this is where the value is sent out to the pin
+  return temp;                    //for use later
 }
 
 
 void Serialdisplay(float volt, float temp) {
   lcd.clear();  // Clear the LCD before displaying new values
   lcd.print("Temperature: ");
-  lcd.print(temp);
+  lcd.print(temp);  //pulls the vlaue
   lcd.print(" °C ");
   lcd.setCursor(0, 1);  // Move to the second line
   lcd.print("Voltage: ");
-  lcd.print(volt);
+  lcd.print(volt);  //pulls the value
   lcd.print(" V ");
 }
 
