@@ -31,12 +31,12 @@ _______________________________________________________________
 | LCD Display | 1k resistor to ground → VD, Pin 7 → RS, Pin 8 → RW,			   |
 |             | K→GND Pin 9 → D4, Pin 10 → D5, Pin 11 → D6, Pin 12 → D7, A→VCC | 
 | Temp Sensor | Vout → Pin 3                                                   | 
-| Volt Sensor | Voltage Divider node A → A0                                    | 
+| Volt Sensor | Voltage Divider node A → A5                                    | 
 
 ## Pinout Image ##
 ![Local Image](Docs/CircuitExamplePSR.png)
 
-# SAFETEY DISCLAIMER #
+# SAFETY DISCLAIMER #
 
 ## THIS PROJECT DEALS WITH POWER SUPPLIES ##
 
