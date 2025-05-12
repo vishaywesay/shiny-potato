@@ -13,8 +13,8 @@ int x;
 int y;
 int z;
 const int Hspeed = 255;  //This is used to set pin controlling fan to full on
-const int Mspeed = 128;  // Value for setting fan to half speed on analog pin control
-const int Lspeed = 85;   // Value for min fan speed on analog pin control pin for TIP110
+const int Mspeed = 200;  // Value for setting fan to half speed on analog pin control
+const int Lspeed = 102;   // Value for min fan speed on analog pin control pin for TIP110
 
 #define tempPin 3
 OneWire oneWire(tempPin);             // Initialize OneWire protocol on pin tempPin.
@@ -59,11 +59,10 @@ float Temper() {
 
     fanSpeed = Mspeed;
 
-  } else if (temp < 21) {
+  } else {
 
     fanSpeed = Lspeed;
-  } else {
-    fanSpeed = 0;
+
   }
 
   analogWrite(fanPin, fanSpeed);
