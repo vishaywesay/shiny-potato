@@ -55,11 +55,11 @@ float Voltage() {
 
 //This function is for the temperature readout
 float Temper() {
-  analogRead(tempPin);            //Reads the pin used for temp
-  sensors.requestTemperatures();  // Function requesting Temperature
-  temp = sensors.getTempCByIndex(0); //Call a fonction from the DallasTemp lib
-  int fanSpeed = 0; //Initial value of fanSpeed is zero as a placeholder. Replaed with speed value
-  
+  analogRead(tempPin);                //Reads the pin used for temp
+  sensors.requestTemperatures();      // Function requesting Temperature
+  temp = sensors.getTempCByIndex(0);  //Call a fonction from the DallasTemp lib
+  int fanSpeed = 0;                   //Initial value of fanSpeed is zero as a placeholder. Replaed with speed value
+
 
   //This is the logic for the fan control
   if (temp > 30) {
