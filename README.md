@@ -37,7 +37,7 @@ _______________________________________________________________
 ![Local Image](Docs/CircuitExamplePSR.png)
 
 ## Block Diagram ##
-![Local Image](Docs/BlockDGPSU.png)
+![Local Image](Docs/BLOCKDGPSU.png)
 
 # SAFETY DISCLAIMER #
 
