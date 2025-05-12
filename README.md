@@ -36,6 +36,9 @@ _______________________________________________________________
 ## Pinout Image ##
 ![Local Image](Docs/CircuitExamplePSR.png)
 
+## Block Diagram ##
+![Local Image](Docs/BlockDGPSU.png)
+
 # SAFETY DISCLAIMER #
 
 ## THIS PROJECT DEALS WITH POWER SUPPLIES ##
