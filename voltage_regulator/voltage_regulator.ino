@@ -71,16 +71,6 @@ float Temper() {
 
 
 void Serialdisplay(float volt, float temp) {
-  /*
-  lcd.print("Temperature: ");
-  lcd.print(temp);
-  lcd.print(" °C ");
-  lcd.setCursor(0, 8);
-  lcd.print("Voltage: ");
-  lcd.print(volt);
-  lcd.println(" V ");
-  lcd.setCursor(0, 8); */
-
   lcd.clear();  // Clear the LCD before displaying new values
   lcd.print("Temperature: ");
   lcd.print(temp);
@@ -92,14 +82,6 @@ void Serialdisplay(float volt, float temp) {
 }
 
 void loop() {
-  /* Temper();
-  Voltage();
-  Serial.print("Voltage:");
-  Serial.println("V");
-  Serial.println(temp);
-  delay(500);
-  lcd.clear(); */
-
   float currentVoltage = Voltage();     // Get the current voltage
   float currentTemperature = Temper();  // Get the current temperature
   Serial.print("Voltage: ");
