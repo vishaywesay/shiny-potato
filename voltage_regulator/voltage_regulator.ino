@@ -12,9 +12,9 @@ int fan;
 int x;
 int y;
 int z;
-const int HIGH_SPEED = 255; //This is used to set pin controlling fan to full on
-const int MED = 128;  // Value for setting fan to half speed on analog pin control
-const int SLOW = 48;  // Value for min fan speed on analog pin control pin for TIP110
+const int Hspeed = 255;  //This is used to set pin controlling fan to full on
+const int Mspeed = 128;  // Value for setting fan to half speed on analog pin control
+const int Lspeed = 85;   // Value for min fan speed on analog pin control pin for TIP110
 
 #define tempPin 3
 OneWire oneWire(tempPin);             // Initialize OneWire protocol on pin tempPin.
@@ -28,6 +28,7 @@ void setup() {
   pinMode(VoltPin, INPUT);
   sensors.begin();
   pinMode(tempPin, INPUT);
+  pinMode(fanPin, OUTPUT);
   lcd.begin(16, 2);  // Initialize LCD type (x columns, y rows)
 }
 
@@ -47,23 +48,31 @@ float Temper() {
   analogRead(tempPin);
   sensors.requestTemperatures();  // Function requesting Temperature
   temp = sensors.getTempCByIndex(0);
-  int = fanSpeed = 0;
-  if (temp >= 30) {
+  int fanSpeed = 0;
 
-    fanSpeed = HIGH_SPEED;
-  } else if (temp >= 25) {
 
-    fanSpeed
+  if (temp > 30) {
 
-  } else if (temp <= 21) {
+    fanSpeed = Hspeed;
 
-    analogWrite(fanPin, 0);
+  } else if (temp > 25) {
+
+    fanSpeed = Mspeed;
+
+  } else if (temp < 21) {
+
+    fanSpeed = Lspeed;
+  } else {
+    fanSpeed = 0;
   }
+
+  analogWrite(fanPin, fanSpeed);
   return temp;
 }
 
 
 void Serialdisplay(float volt, float temp) {
+  /*
   lcd.print("Temperature: ");
   lcd.print(temp);
   lcd.print(" °C ");
@@ -71,15 +80,33 @@ void Serialdisplay(float volt, float temp) {
   lcd.print("Voltage: ");
   lcd.print(volt);
   lcd.println(" V ");
-  lcd.setCursor(0, 8);
+  lcd.setCursor(0, 8); */
+
+  lcd.clear();  // Clear the LCD before displaying new values
+  lcd.print("Temperature: ");
+  lcd.print(temp);
+  lcd.print(" °C ");
+  lcd.setCursor(0, 1);  // Move to the second line
+  lcd.print("Voltage: ");
+  lcd.print(volt);
+  lcd.print(" V ");
 }
 
 void loop() {
-  Temper();
+  /* Temper();
   Voltage();
   Serial.print("Voltage:");
   Serial.println("V");
   Serial.println(temp);
   delay(500);
-  lcd.clear();
+  lcd.clear(); */
+
+  float currentVoltage = Voltage();     // Get the current voltage
+  float currentTemperature = Temper();  // Get the current temperature
+  Serial.print("Voltage: ");
+  Serial.println(currentVoltage);  // Print voltage to Serial Monitor
+  Serial.print("Temperature: ");
+  Serial.println(currentTemperature);                 // Print temperature to Serial Monitor
+  Serialdisplay(currentVoltage, currentTemperature);  // Display on LCD
+  delay(500);                                         // Delay for half a second
 }
