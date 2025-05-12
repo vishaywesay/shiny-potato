@@ -5,16 +5,16 @@
 const int rs = 7, en = 8, d4 = 9, d5 = 10, d6 = 11, d7 = 12;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);  // Create an LCD object
 int VoltPin = A5;
-int fanPin = A0;
+int fanPin = 5;
 float volt;
 float temp;
 int fan;
 int x;
 int y;
 int z;
-int FAST = 255;
-int MED = 128;
-int SLOW = 48;
+const int HIGH_SPEED = 255; //This is used to set pin controlling fan to full on
+const int MED = 128;  // Value for setting fan to half speed on analog pin control
+const int SLOW = 48;  // Value for min fan speed on analog pin control pin for TIP110
 
 #define tempPin 3
 OneWire oneWire(tempPin);             // Initialize OneWire protocol on pin tempPin.
@@ -47,12 +47,17 @@ float Temper() {
   analogRead(tempPin);
   sensors.requestTemperatures();  // Function requesting Temperature
   temp = sensors.getTempCByIndex(0);
+  int = fanSpeed = 0;
   if (temp >= 30) {
-    analogWrite(fanPin, 255);
+
+    fanSpeed = HIGH_SPEED;
   } else if (temp >= 25) {
-    analogWrite(fanPin, 128);
+
+    fanSpeed
+
   } else if (temp <= 21) {
-    analogWrite(fanPin, 48);
+
+    analogWrite(fanPin, 0);
   }
   return temp;
 }
